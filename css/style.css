@@ -1,0 +1,235 @@
+html, body{
+  font-family: 'Kanit', sans-serif;
+  padding: 0;
+  margin: 0;
+
+}
+
+.link-a{ color: #fff; }
+.link-a:visited { color: #fff; text-decoration: none}
+.link-a:active { color: #CDE7FF; text-decoration: none}
+.link-a:hover { color: #CDE7FF; text-decoration: none}
+
+.link-b{ color: #888; }
+.link-b:visited { color: #888; text-decoration: none}
+.link-b:active { color: #CDE7FF; text-decoration: none}
+.link-b:hover { color: #CDE7FF; text-decoration: none}
+
+.navigationbar{
+  position: fixed;
+  background: #5E5E5E;
+  z-index: 99999;
+  right: 0px;
+  left:0px;
+  color: #fff;
+}
+
+.navigationbar > .nav-container{
+  padding: 0px 10px 0px 0px;
+}
+
+.infoPanel{
+  position: absolute;
+  width: 300px;
+  /*height: 230px;*/
+  right: 50px;
+  bottom: 25px;
+  background: #fff;
+  z-index: 9999999999;
+  display:none;
+}
+.leftcontainer{
+  /*position: fixed;*/
+  position: absolute;
+  top: 0px;
+  left:0px;
+  bottom: 0px;
+  background: #fff;
+  z-index: 99998;
+  width: 350px;
+}
+
+.cus-row{
+  width: 100%;
+}
+
+.col-10{
+  padding: 5px 20px 10px 20px;
+}
+
+.shadow1{
+  -moz-box-shadow: 0 0 6px 4px #888;
+  -webkit-box-shadow: 0 0 6px 4px #888;
+  box-shadow: 0 0 6px 4px #888;
+}
+
+.shadow2{
+  -moz-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px #888;
+box-shadow: 0 0 5px #888;
+}
+
+.text-left{ text-align: left; }
+.text-center{ text-align: center; }
+.text-right{ text-align: right; }
+
+#style-3::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+	background-color: #CF0000;
+}
+
+.selection{
+  font-size: 10pt;
+  font-family: 'Kanit', sans-serif;
+  color: #888;
+  font-weight: lighter;
+}
+
+/*#login{
+  cursor: pointer;
+  background: #CF0000;
+}*/
+
+/*#login:hover{
+  background: #FF5B5B;
+}*/
+
+/*#map-canvas{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: #f9f9f9;
+  z-index: 1;
+}*/
+
+#map-canvas{
+  position: absolute;
+  /*height: 300px;*/
+  top: 50px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: #7dcdcd;
+  z-index: 1;
+}
+
+#map-canvas2{
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: #f9f9f9;
+  z-index: 1;
+}
+
+.doctor_show{
+    position: fixed;
+    z-index:9999999;
+    margin:auto;
+    /*top: 20px;*/
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    /*left: 20px;*/
+    /*right: 20px;*/
+    height: 410px;
+    /*bottom: 20px;*/
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 0px solid #000000;
+    background-color:#F9FAFC;
+    text-align:left;
+    display:none;
+}
+
+#overlay {
+    background:#000;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index:9999998;
+    position:fixed;
+    opacity: .5;
+    filter: alpha(opacity=50);
+    -moz-opacity: .5;
+    display:none;
+}
+
+div.olFramedCloudPopupContent { width: 300px; }
+
+      div, p {
+/*font-family: Verdana, Arial, sans-serif;*/
+}
+
+p.content {
+font-size: 12px;
+width: 30em;
+}
+
+div#help {
+font-size: 12px;
+width: 45em;
+padding: 1em;
+}
+
+div#timemap {
+/*padding: 1em;*/
+}
+
+div#timelinecontainer{
+width: 100%;
+height: 200px;
+top: 200px;
+}
+
+div#timeline{
+ width: 100%;
+ height: 100%;
+ font-size: 12px;
+ background: #CCCCCC;
+}
+
+div#mapcontainer {
+ width: 100%;
+ height: 400px;
+}
+
+div#map {
+ width: 100%;
+ height: 100%;
+ background: #EEEEEE;
+}
+
+div.infotitle {
+    font-size: 14px;
+    font-weight: bold;
+}
+div.infodescription {
+    font-size: 14px;
+    font-style: italic;
+}
+
+div.custominfostyle {
+    font-family: Georgia, Garamond, serif;
+    font-size: 1.5em;
+    font-style: italic;
+    width: 20em;
+}

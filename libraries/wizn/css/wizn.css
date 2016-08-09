@@ -1,0 +1,152 @@
+body{
+  font-family: 'Kanit', sans-serif;
+  background: #f3f3f3;
+}
+
+.btom-menu{
+  background: #493057;
+}
+
+.foter-menu{
+  background: #323232;
+  color: #fff;
+  font-weight: 200;
+  padding: 20px 0px 20px 0px;
+}
+
+.foter-menu2{
+  background: #000;
+  color: #fff;
+  font-weight: 200;
+  padding: 10px 0px 10px 0px;
+  /*font-family: arial;*/
+  /*font-weight: bold;*/
+  font-size: 1.0em;
+}
+
+.cont-menu-offset{
+  background: #f3f3f3;
+}
+
+.cont-menu{
+  background: #fff;
+}
+
+.link-a:link { color:#fff; text-decoration:none}
+.link-a:visited {color: #fff; text-decoration: none}
+.link-a:hover {color:#FFCD2B;}
+
+.link-b{ font-weight: 200; font-size: 16px;}
+.link-b:link { color:#000; text-decoration:none}
+.link-b:visited {color: #000; text-decoration: none}
+.link-b:hover {color:#007759;}
+
+.panal-pane{
+  padding: 20px;
+  margin: 10px;
+}
+
+.dsd {
+-moz-box-shadow: 0 0 3px #000;
+-webkit-box-shadow: 0 0 3px #000;
+box-shadow: 0 0 3px #000;
+}
+
+.fw{
+  font-weight: 200;
+}
+
+.btn-custom-default{
+  font-size: 0.8em;
+  border:solid;
+  border-width: 1px;
+  background: none;
+  border-color: #15B58D;
+}
+
+.content-info>h3{
+  font-size: 29px;
+  border: solid;
+  border-width: 2px 0px 2px 0px;;
+  border-color: #95003C;
+  padding: 10px 0px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.panel-title>h4{
+  /*border: solid;*/
+  /*border-width: 0px 0px 2px 0px;*/
+  /*border-color: #95003C;*/
+  padding: 10px 10px;
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.panel-title>h4>small{
+  color: #fff;
+}
+
+.panel_title{
+  margin: 0px;
+
+}
+
+.panel-content{
+  background: #f3f3f3;
+  padding: 10px;
+  margin: 0px;
+}
+
+.panel-title2>h4{
+  border: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: #fff;
+  padding: 10px 10px;
+  color: #fff;
+}
+
+.book-info>h3{
+  font-size: 23px;
+  border: solid;
+  border-width: 0px 0px 2px 0px;;
+  border-color: #95003C;
+  padding: 10px 0px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.item-info{
+  color: #95003C;
+}
+
+.post-info{
+  color: #000;
+}
+
+.menu-link{
+  padding: 10px;
+}
+
+.bottom-align-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+.content-detail>p{
+  font-weight: 300;
+  font-size: 16px;
+  padding-left: 6px;
+}
+
+.index-multicol{
+  margin-bottom: 30px;
+}
+
+
+.dsd {
+-moz-box-shadow: 0 0 15px #414040;
+-webkit-box-shadow: 0 0 15px #414040;
+box-shadow: 0 0 15px #414040;
+}
