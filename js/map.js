@@ -179,10 +179,8 @@ function fetchMarker(){
   // }
 
   setTimeout(function(){
-    var jqxhr = $.post($urlsd , {sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val() , itemsdb: $items, isdb: $is, evt1: $road , evt2: $water , evt3: $fall } , function(data) {
-
-
-
+    // var jqxhr = $.post($urlsd , {sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val() , itemsdb: $items, isdb: $is, evt1: $road , evt2: $water , evt3: $fall } , function(data) {
+    var jqxhr = $.post($urlsd, {  sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val(), evt1: $road , evt2: $water , evt3: $fall , dbitems: $items, dbis: $is } ,function(data) {
           if(data.length==0){
             swal("ไม่พบข้อมูล");
           }else{
@@ -238,40 +236,21 @@ function fetchMarker(){
                           $('#infoPane').fadeIn('fast', function(){});
                         }
 
-                        // for (var j = 0; j < circle.length; j++) {
-                        //   circle[j].setOptions({
-                        //     fillColor: '#FF0000',
-                        //     fillOpacity: 0.7
-                        //   });
-                        // }
-                        //
-                        // circle[i].setOptions({
-                        //   fillColor: '#FF9200',
-                        //   fillOpacity: 0.9
-                        // });
-
                         $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
 
-                        $items = 'false';$is = 'false';
-                        $road = 'false';$water = 'false';$fall = 'false';
-                        $isAll = 'Yes';
+                        $dbitems = 'false'; $dbis = 'false';
+                        $road = 'false'; $water = 'false'; $fall = 'false';
+                        $Allis = 'Yes';
 
-                        if($("#chItems").is(':checked')){ $items = 'true'; }
-                        if($("#chIs").is(':checked')){ $is = 'true'; }
-                        if(!$("#chAge").is(':checked')){ $isAll = 'No'; }
+                        if($("#chItems").is(':checked')){ $dbitems = 'true'; }
+                        if($("#chIs").is(':checked')){ $dbis = 'true'; }
+                        if(!$("#chAge").is(':checked')){ $Allis = 'No'; }
                         if($("#chRoad").is(':checked')){ $road = 'true'; }
                         if($("#chWater").is(':checked')){ $water = 'true'; }
                         if($("#chFall").is(':checked')){ $fall = 'true'; }
 
                         // console.log(circleTitle[i]);
-                        var jqxhr = $.post($url_infocontent,
-                          {
-                            id: circleTitle[i]
-                          },
-                          function(result){
-
-                          // console.log(result);
-                        });
+                        var jqxhr = $.post($url_infocontent,  {    id: circleTitle[i]    },function(result){ });
 
                         jqxhr.always(function(data){
                           $('#infoSpan').html(data);
@@ -335,74 +314,70 @@ function fetchMarker(){
                   mrr.push($maxRad);
                   circle.push(cityCircle);
 
-                  // (function(circle, i) {
-                  //     // add click event
-                  //     google.maps.event.addListener(circle[i], 'click', function(evt) {
-                  //       $('#infoSpan').html('<img src="images/spinner.gif" width="100%">');
-                  //
-                  //       if($('#infoPane').css('display')=='none'){
-                  //         $('#infoPane').fadeIn('fast', function(){});
-                  //       }
-                  //
-                  //       for (var j = 0; j < circle.length; j++) {
-                  //         circle[j].setOptions({
-                  //           fillColor: '#FF0000',
-                  //           fillOpacity: 0.7
-                  //         });
-                  //       }
-                  //
-                  //       circle[i].setOptions({
-                  //         fillColor: '#FF9200',
-                  //         fillOpacity: 0.9
-                  //       });
-                  //
-                  //       // console.log(circleTitle[i]);
-                  //
-                  //       if($('#txtLevel').val()==1){
-                  //         $url_infocontent = 'core/placeDetail_province_mongo.php?place_id=' + circleTitle[i];
-                  //       }else if($('#txtLevel').val()==2){
-                  //         $url_infocontent = 'core/placeDetail_district_mongo.php?place_id=' + circleTitle[i];
-                  //       }else if($('#txtLevel').val()==3){
-                  //         $url_infocontent = 'core/placeDetail_tabmon_mongo.php?place_id=' + circleTitle[i];
-                  //       }else if($('#txtLevel').val()==4){
-                  //         $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
-                  //       }
-                  //
-                  //       $items = 'false';$is = 'false';
-                  //       $road = 'false';$water = 'false';$fall = 'false';
-                  //       $isAll = 'Yes';
-                  //
-                  //       if($("#chItems").is(':checked')){ $items = 'true'; }
-                  //       if($("#chIs").is(':checked')){ $is = 'true'; }
-                  //       if(!$("#chAge").is(':checked')){ $isAll = 'No'; }
-                  //       if($("#chRoad").is(':checked')){ $road = 'true'; }
-                  //       if($("#chWater").is(':checked')){ $water = 'true'; }
-                  //       if($("#chFall").is(':checked')){ $fall = 'true'; }
-                  //
-                  //       var jqxhr = $.post($url_infocontent,
-                  //         {
-                  //           dateStart: $('#txtStart').val() ,
-                  //           dateEnd: $('#txtEnd').val(),
-                  //           ageStart: $('#txtAgestart').val() ,
-                  //           ageEnd: $('#txtAgeend').val(),
-                  //           itemsdb: $items,
-                  //           isdb: $is,
-                  //           evt1: $road ,
-                  //           evt2: $water ,
-                  //           evt3: $fall,
-                  //           ageall: $isAll
-                  //         },
-                  //         function(result){
-                  //
-                  //         // console.log(result);
-                  //       });
-                  //
-                  //       jqxhr.always(function(data){
-                  //         $('#infoSpan').html(data);
-                  //       });
-                  //
-                  //     }); //End eventListener
-                  // })(circle, i);
+                  (function(circle, i) {
+                      // add click event
+                      google.maps.event.addListener(circle[i], 'click', function(evt) {
+                        $('#infoSpan').html('<img src="images/spinner.gif" width="100%">');
+
+                        if($('#infoPane').css('display')=='none'){
+                          $('#infoPane').fadeIn('fast', function(){});
+                        }
+
+                        for (var j = 0; j < circle.length; j++) {
+                          circle[j].setOptions({
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.7
+                          });
+                        }
+
+                        circle[i].setOptions({
+                          fillColor: '#FF9200',
+                          fillOpacity: 0.9
+                        });
+
+                        if($('#txtLevel').val()==1){
+                          $url_infocontent = 'core/placeDetail_province_mongo.php?place_id=' + circleTitle[i];
+                        }else if($('#txtLevel').val()==2){
+                          $url_infocontent = 'core/placeDetail_district_mongo.php?place_id=' + circleTitle[i];
+                        }else if($('#txtLevel').val()==3){
+                          $url_infocontent = 'core/placeDetail_tabmon_mongo.php?place_id=' + circleTitle[i];
+                        }else if($('#txtLevel').val()==4){
+                          $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
+                        }
+
+                        $items = 'false';$dbis = 'false';
+                        $road = 'false';$water = 'false';$fall = 'false';
+                        $Allis = 'Yes';
+
+                        if($("#chItems").is(':checked')){ $items = 'true'; }
+                        if($("#chIs").is(':checked')){ $dbis = 'true'; }
+                        if(!$("#chAge").is(':checked')){ $Allis = 'No'; }
+                        if($("#chRoad").is(':checked')){ $road = 'true'; }
+                        if($("#chWater").is(':checked')){ $water = 'true'; }
+                        if($("#chFall").is(':checked')){ $fall = 'true'; }
+
+                        var jqxhr = $.post($url_infocontent,
+                          {
+                            dateStart: $('#txtStart').val() ,
+                            dateEnd: $('#txtEnd').val(),
+                            ageStart: $('#txtAgestart').val() ,
+                            ageEnd: $('#txtAgeend').val(),
+                            dbitems: $items,
+                            dbis: $dbis,
+                            evt1: $road ,
+                            evt2: $water ,
+                            evt3: $fall,
+                            ageall: $Allis
+                          },
+                          function(result){
+                        });
+
+                        jqxhr.always(function(data){
+                          $('#infoSpan').html(data);
+                        });
+
+                      }); //End eventListener
+                  })(circle, i);
 
                 }
 
