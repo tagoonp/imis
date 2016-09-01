@@ -1,36 +1,33 @@
 <?php
-// ini_set('memory_limit', '256M');
-// ini_set('max_execution_time', 300);
-
 $mongodb = new MongoClient();
 $db = $mongodb->imis;
 $collection = $db->linkeddata;
 $collection2 = $db->col_province;
 
-// $evtArr = array();
-// if($_POST['evt1']=='true'){
-//   $evtArr[] = 25;
-// }
-//
-// if($_POST['evt2']=='true'){
-//   $evtArr[] = 23;
-// }
-//
-// if($_POST['evt3']=='true'){
-//   $evtArr[] = 24;
-// }
+$evtArr = array();
+if($_POST['evt1']=='true'){
+  $evtArr[] = 25;
+}
 
-// $strArr = array(
-//   array('age' => array('$gte' => intval($_POST['sage']), '$lte' => intval($_POST['eage']))),
-//   array('adate' => array('$gte' => $_POST['sdate'], '$lte' => $_POST['edate'])),
-//   array('atype' => array('$in' => $evtArr))
-// );
+if($_POST['evt2']=='true'){
+  $evtArr[] = 23;
+}
+
+if($_POST['evt3']=='true'){
+  $evtArr[] = 24;
+}
 
 $strArr = array(
-  array('age' => array('$gte' => intval(0), '$lte' => intval(100))),
-  array('adate' => array('$gte' => '2013-01-01', '$lte' => '2013-12-31')),
-  array('atype' => array('$in' => array(23,24,25)))
+  array('age' => array('$gte' => intval($_POST['sage']), '$lte' => intval($_POST['eage']))),
+  array('adate' => array('$gte' => $_POST['sdate'], '$lte' => $_POST['edate'])),
+  array('atype' => array('$in' => $evtArr))
 );
+
+// $strArr = array(
+//   array('age' => array('$gte' => intval(0), '$lte' => intval(100))),
+//   array('adate' => array('$gte' => '2013-01-01', '$lte' => '2013-12-31')),
+//   array('atype' => array('$in' => array(23,24,25)))
+// );
 
 $cursor = $collection->group(
   array('province' => true), // fields to group by
@@ -58,5 +55,5 @@ foreach ($cursor['retval'] as $item){
 }
 
 echo json_encode($return);
-
+$mongodb->close();
 ?>

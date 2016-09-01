@@ -30,6 +30,12 @@ if($_POST['evt3']==true){
   $evtArr[] = 24;
 }
 
+// $strArr = array(
+//   array(),
+//   array('age' => array('$gte' => intval($_POST['sage']), '$lte' => intval($_POST['eage']))),
+//   array('adate' => array('$gte' => $_POST['sdate'], '$lte' => $_POST['edate'])),
+//   array('atype' => array('$in' => $evtArr))
+// );
 
 $cursor = $collection->find(array("province" => intval($id)));
 $cursor->limit(1);
@@ -49,7 +55,10 @@ foreach ($cursor as $value) {
 
         </th>
         <th>
-          ผู้บาดเจ็บ
+          จน.<br>เหตุการณ์
+        </th>
+        <th>
+          บาดเจ็บ
         </th>
         <th>
            เสียชีวิต
@@ -63,13 +72,96 @@ foreach ($cursor as $value) {
         </td>
         <td>
           <?php
+          $ops = array(
+                          array(
+                            '$match' => array(
+                                                'adate' => array(
+                                                  '$gte' => $dateStart,
+                                                  '$lte' => $dateEnd
+                                                ),
+                                                'age' => array(
+                                                  '$gte' => intval($ageStart),
+                                                  '$lte' => intval($ageEnd)
+                                                ),
+                                                'lat' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'lng' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'province' => intval($id),
+                                                'atype' => 25
+                                                ),
+
+                              ),
+                          array(
+                                  '$sort' => array(
+                                      'adate' => 1,
+                                      'atime' => 1
+                                  )
+                          )
+
+          );
+
+          $cursor = $collection->aggregate($ops);
+
+          $return = '';
+          $h = 0;
+          $i = 0;
+          foreach ($cursor as $item) {
+            if($h==1){
+              foreach ($item as $value) {
+                $locationArr = array();
+                $return[$i]['adate'] = $value['adate'];
+                $return[$i]['atime'] = $value['atime'];
+                $i++;
+              }
+            }
+            $h++;
+          }
+
+          if($i==0){
+            print "0";
+          }else{
+            $buff1 = '';
+            $buff2 = '';
+            $buff3 = '';
+
+            $count = 0;
+            $i = 0;
+
+            foreach ($return as $value) {
+              if($i==0){
+                $buff1 = $value['adate'];
+                $buff2 = $value['atime'];
+                $count++;
+                $i++;
+              }else{
+                if(($buff1==$value['adate']) && ($buff2==$value['atime'])){
+
+                }else{
+                  $buff1 = $value['adate'];
+                  $buff2 = $value['atime'];
+                  $count++;
+                  $i++;
+                }
+              }
+            }
+
+            print number_format($count);
+          }
+          ?>
+        </td>
+        <td>
+          <?php
           // print $_POST['evt1'];
           if($_POST['evt1']=='true'){
             $cursor = $collection->count(
             array( '$and' =>
                 array(
                   array('province' => intval($id)),
-                  array('age' => array('$gte' => intval($ageStart), '$lte' => intval($ageEnd))),
+                  array('age' => array('$gte' => intval($ageStart))),
+                  array('age' => array('$lte' => intval($ageEnd))),
                   array('adate' => array('$gte' => $dateStart, '$lte' => $dateEnd)),
                   array('atype' => 25)
                 )
@@ -107,6 +199,88 @@ foreach ($cursor as $value) {
       <tr>
         <td>
           <img src="images/mb100p.png" alt="" width="13"  /> จมน้้ำ
+        </td>
+        <td>
+          <?php
+          $ops = array(
+                          array(
+                            '$match' => array(
+                                                'adate' => array(
+                                                  '$gte' => $dateStart,
+                                                  '$lte' => $dateEnd
+                                                ),
+                                                'age' => array(
+                                                  '$gte' => intval($ageStart),
+                                                  '$lte' => intval($ageEnd)
+                                                ),
+                                                'lat' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'lng' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'province' => intval($id),
+                                                'atype' => 23
+                                                ),
+
+                              ),
+                          array(
+                                  '$sort' => array(
+                                      'adate' => 1,
+                                      'atime' => 1
+                                  )
+                          )
+
+          );
+
+          $cursor = $collection->aggregate($ops);
+
+          $return = '';
+          $h = 0;
+          $i = 0;
+          foreach ($cursor as $item) {
+            if($h==1){
+              foreach ($item as $value) {
+                $locationArr = array();
+                $return[$i]['adate'] = $value['adate'];
+                $return[$i]['atime'] = $value['atime'];
+                $i++;
+              }
+            }
+            $h++;
+          }
+
+          if($i==0){
+            print "0";
+          }else{
+            $buff1 = '';
+            $buff2 = '';
+            $buff3 = '';
+
+            $count = 0;
+            $i = 0;
+
+            foreach ($return as $value) {
+              if($i==0){
+                $buff1 = $value['adate'];
+                $buff2 = $value['atime'];
+                $count++;
+                $i++;
+              }else{
+                if(($buff1==$value['adate']) && ($buff2==$value['atime'])){
+
+                }else{
+                  $buff1 = $value['adate'];
+                  $buff2 = $value['atime'];
+                  $count++;
+                  $i++;
+                }
+              }
+            }
+
+            print number_format($count);
+          }
+          ?>
         </td>
         <td>
           <?php
@@ -153,6 +327,88 @@ foreach ($cursor as $value) {
       <tr>
         <td>
           <img src="images/my100p.png" alt=""  width="13" /> พลัดตกหกล้ม
+        </td>
+        <td>
+          <?php
+          $ops = array(
+                          array(
+                            '$match' => array(
+                                                'adate' => array(
+                                                  '$gte' => $dateStart,
+                                                  '$lte' => $dateEnd
+                                                ),
+                                                'age' => array(
+                                                  '$gte' => intval($ageStart),
+                                                  '$lte' => intval($ageEnd)
+                                                ),
+                                                'lat' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'lng' => array(
+                                                                '$ne' => 'NULL'
+                                                ),
+                                                'province' => intval($id),
+                                                'atype' => 24
+                                                ),
+
+                              ),
+                          array(
+                                  '$sort' => array(
+                                      'adate' => 1,
+                                      'atime' => 1
+                                  )
+                          )
+
+          );
+
+          $cursor = $collection->aggregate($ops);
+
+          $return = '';
+          $h = 0;
+          $i = 0;
+          foreach ($cursor as $item) {
+            if($h==1){
+              foreach ($item as $value) {
+                $locationArr = array();
+                $return[$i]['adate'] = $value['adate'];
+                $return[$i]['atime'] = $value['atime'];
+                $i++;
+              }
+            }
+            $h++;
+          }
+
+          if($i==0){
+            print "0";
+          }else{
+            $buff1 = '';
+            $buff2 = '';
+            $buff3 = '';
+
+            $count = 0;
+            $i = 0;
+
+            foreach ($return as $value) {
+              if($i==0){
+                $buff1 = $value['adate'];
+                $buff2 = $value['atime'];
+                $count++;
+                $i++;
+              }else{
+                if(($buff1==$value['adate']) && ($buff2==$value['atime'])){
+
+                }else{
+                  $buff1 = $value['adate'];
+                  $buff2 = $value['atime'];
+                  $count++;
+                  $i++;
+                }
+              }
+            }
+
+            print number_format($count);
+          }
+          ?>
         </td>
         <td>
           <?php

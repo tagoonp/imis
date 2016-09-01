@@ -3,33 +3,39 @@ include "../configuration/connect.class.php";
 $db = new database();
 $db->connect();
 
-$level = $_POST['txtLevel'];
+$province = ' and province = NULL ';
+
+if(isset($_POST['province'])){
+  if($_POST['province']!=''){
+    $province = ' and province = '.$_POST['province'];
+  }
+}
+
+if(isset($_POST['district'])){
+  if(trim($_POST['district'])!=""){
+    $province .= ' and district = '.$_POST['district'];
+  }else{
+
+  }
+}
+
+if(isset($_POST['tumbon'])){
+  if($_POST['tumbon']!=''){
+    $province .= ' and tumbon = '.$_POST['tumbon'];
+  }
+}
+
 $ageStart = $_POST['ageStart'];
 $ageEnd = $_POST['ageEnd'];
 $dateStart = $_POST['dateStart'];
 $dateEnd = $_POST['dateEnd'];
 $itemcb = $_POST['itemcb'];
-$iscb = $_POST['iscb'];
-$isall = $_POST['isall'];
+$iscb = $_POST['dbis'];
+
 $eventType = $_POST['eventtype'];
 $buff = explode(',' , $eventType);
 $eventType = implode("','" , $buff);
 
-// $return_buff = array(0,0,0);
-
-$itemsstr = '';
-if($itemcb=='Yes'){
-  $itemsstr = ' and itemsid IS NOT NULL ';
-}else{
-  $itemsstr = ' and itemsid IS NULL ';
-}
-
-$isstr = '';
-if($itemcb=='Yes'){
-  $isstr = ' or isid != "" ';
-}else{
-  $isstr = ' or isid = "" ';
-}
 
 $i = 0;
 
@@ -39,6 +45,9 @@ $strSQL = "SELECT atype, count(*) numcase
              atype in ('".$eventType."')
              and adate between '".$dateStart."' and '".$dateEnd."'
              and age between ".$ageStart." and '".$ageEnd."'
+             ".$province."
+             and lat is not NULL and lng is not NULL
+             and status = 0
              GROUP BY atype
              ";
 

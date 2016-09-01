@@ -5,6 +5,41 @@ html, body{
 
 }
 
+.loadBG{
+  background:#000;
+   top: 0px;
+   left: 0px;
+   right: 0px;
+   bottom: 0px;
+   z-index:9999998;
+   position:fixed;
+   opacity: .5;
+   filter: alpha(opacity=50);
+   -moz-opacity: .5;
+   display:none;
+}
+
+.loadingDiv{
+    position: fixed;
+    z-index:999999999;
+    margin:auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 0px solid #000000;
+    /*background-color:#fff;*/
+    text-align:left;
+    display:none;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .link-a{ color: #fff; }
 .link-a:visited { color: #fff; text-decoration: none}
 .link-a:active { color: #CDE7FF; text-decoration: none}
@@ -30,7 +65,7 @@ html, body{
 
 .infoPanel{
   position: absolute;
-  width: 300px;
+  width: 400px;
   /*height: 230px;*/
   right: 50px;
   bottom: 0px;

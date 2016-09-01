@@ -13,6 +13,10 @@ var circleTitle = [];
 var nc;
 
 function initMap(){
+
+  $('.loadingDiv').show();
+  $('.loadBG').show();
+
   circle = [];
   circleTitle = [];
   mrr = [];
@@ -181,6 +185,24 @@ function fetchMarker(){
   setTimeout(function(){
     // var jqxhr = $.post($urlsd , {sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val() , itemsdb: $items, isdb: $is, evt1: $road , evt2: $water , evt3: $fall } , function(data) {
     var jqxhr = $.post($urlsd, {  sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val(), evt1: $road , evt2: $water , evt3: $fall , dbitems: $items, dbis: $is } ,function(data) {
+
+    },"json");
+
+    jqxhr.fail(function(err){
+      setTimeout(function(){
+        $('.loadingDiv').hide();
+        $('.loadBG').fadeOut('fast', function(){});
+      },5000);
+      console.log(err);
+      swal("การเชื่อมต่อฐานข้อมูลล้มเหลว");
+    });
+
+    jqxhr.always(function(data){
+      setTimeout(function(){
+        $('.loadingDiv').hide();
+        $('.loadBG').fadeOut('fast', function(){});
+      },5000);
+
           if(data.length==0){
             swal("ไม่พบข้อมูล");
           }else{
@@ -345,13 +367,14 @@ function fetchMarker(){
                           $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
                         }
 
+                        // console.log(circleTitle[i]);
+
                         $items = 'false';$dbis = 'false';
                         $road = 'false';$water = 'false';$fall = 'false';
                         $Allis = 'Yes';
 
                         if($("#chItems").is(':checked')){ $items = 'true'; }
                         if($("#chIs").is(':checked')){ $dbis = 'true'; }
-                        if(!$("#chAge").is(':checked')){ $Allis = 'No'; }
                         if($("#chRoad").is(':checked')){ $road = 'true'; }
                         if($("#chWater").is(':checked')){ $water = 'true'; }
                         if($("#chFall").is(':checked')){ $fall = 'true'; }
@@ -366,8 +389,7 @@ function fetchMarker(){
                             dbis: $dbis,
                             evt1: $road ,
                             evt2: $water ,
-                            evt3: $fall,
-                            ageall: $Allis
+                            evt3: $fall
                           },
                           function(result){
                         });
@@ -386,253 +408,9 @@ function fetchMarker(){
 
             }, 1000);
           }
-    },"json");
 
-    jqxhr.fail(function(err){
-      console.log(err);
-    });
-
-    jqxhr.always(function(data){
-
-    });
+    }, "json");
   },5000);
-
-
-
-  // $.post($urlsd , {sdate: $('#txtStart').val() , edate: $('#txtEnd').val(), sage: $('#txtAgestart').val() ,eage: $('#txtAgeend').val() , itemsdb: $items, isdb: $is, evt1: $road , evt2: $water , evt3: $fall } , function(data) {
-  //
-  //   if(data.length==0){
-  //     swal("ไม่พบข้อมูล");
-  //   }else{
-  //     $max = 0;
-  //     for (var i = 0; i < data.length; i++) {
-  //       if(i==0){
-  //         $max = data[0].num;
-  //       }else{
-  //         if(data[0].num > $max){
-  //           $max = data[0].num;
-  //         }
-  //       }
-  //     }
-  //
-  //     $maxVal = $max;
-  //     $maxRad = $maxVal;
-  //     mr = $maxVal + ($maxVal * 0.27);
-  //     setTimeout(function(){
-  //
-  //       var icon = 'images/p0.png';
-  //
-  //       for (var i = 0; i < data.length; i++) {
-  //         $maxRad = (Number(data[i].num) * 100)/$maxVal;
-  //         $color = '#FF0000';
-  //
-  //         if($level==4){
-  //           if(data[i].atype=='25'){
-  //             icon = 'images/mr0p.png';
-  //           }else if(data[i].atype=='23'){
-  //             icon = 'images/mb40p.png';
-  //           }else if(data[i].atype=='24'){
-  //             icon = 'images/my60p.png';
-  //           }
-  //
-  //           $maxRad = 500;
-  //
-  //           var markerLatLng = new google.maps.LatLng(Number(data[i].lat), Number(data[i].lng));
-  //           my_Marker[i] = new google.maps.Marker({
-  //               position: markerLatLng,
-  //               map: map,
-  //               icon: icon
-  //           });
-  //
-  //           circleTitle.push((data[i].prov));
-  //           circle.push(my_Marker[i]);
-  //
-  //           (function(circle, i) {
-  //               // add click event
-  //               google.maps.event.addListener(circle[i], 'click', function(evt) {
-  //                 $('#infoSpan').html('<img src="images/spinner.gif" width="100%">');
-  //
-  //                 if($('#infoPane').css('display')=='none'){
-  //                   $('#infoPane').fadeIn('fast', function(){});
-  //                 }
-  //
-  //                 // for (var j = 0; j < circle.length; j++) {
-  //                 //   circle[j].setOptions({
-  //                 //     fillColor: '#FF0000',
-  //                 //     fillOpacity: 0.7
-  //                 //   });
-  //                 // }
-  //                 //
-  //                 // circle[i].setOptions({
-  //                 //   fillColor: '#FF9200',
-  //                 //   fillOpacity: 0.9
-  //                 // });
-  //
-  //                 $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
-  //
-  //                 $items = 'false';$is = 'false';
-  //                 $road = 'false';$water = 'false';$fall = 'false';
-  //                 $isAll = 'Yes';
-  //
-  //                 if($("#chItems").is(':checked')){ $items = 'true'; }
-  //                 if($("#chIs").is(':checked')){ $is = 'true'; }
-  //                 if(!$("#chAge").is(':checked')){ $isAll = 'No'; }
-  //                 if($("#chRoad").is(':checked')){ $road = 'true'; }
-  //                 if($("#chWater").is(':checked')){ $water = 'true'; }
-  //                 if($("#chFall").is(':checked')){ $fall = 'true'; }
-  //
-  //                 // console.log(circleTitle[i]);
-  //                 var jqxhr = $.post($url_infocontent,
-  //                   {
-  //                     id: circleTitle[i]
-  //                   },
-  //                   function(result){
-  //
-  //                   // console.log(result);
-  //                 });
-  //
-  //                 jqxhr.always(function(data){
-  //                   $('#infoSpan').html(data);
-  //                 });
-  //
-  //               }); //End eventListener
-  //           })(circle, i);
-  //
-  //         // End level type 4
-  //         }else{
-  //           if(($maxRad >= 0 ) && ($maxRad < 20)){
-  //             // $maxRad = 1300;
-  //             switch($level){
-  //               case '1': $maxRad = 1300; break;
-  //               case '2': $maxRad = 900; break;
-  //               case '3': $maxRad = 600; break;
-  //             }
-  //           }else if(($maxRad >= 21 ) && ($maxRad < 40)){
-  //             // $maxRad = 1800;
-  //             switch($level){
-  //               case '1': $maxRad = 1800; break;
-  //               case '2': $maxRad = 1000; break;
-  //               case '3': $maxRad = 800; break;
-  //             }
-  //           }else if(($maxRad >= 41 ) && ($maxRad < 60)){
-  //             // $maxRad = 2300;
-  //             switch($level){
-  //               case '1': $maxRad = 2300; break;
-  //               case '2': $maxRad = 1200; break;
-  //               case '3': $maxRad = 1000; break;
-  //             }
-  //           }else if(($maxRad >= 61 ) && ($maxRad < 80)){
-  //             switch($level){
-  //               case '1': $maxRad = 3000; break;
-  //               case '2': $maxRad = 1500; break;
-  //               case '3': $maxRad = 1200; break;
-  //             }
-  //           }else if($maxRad >= 81 ){
-  //             switch($level){
-  //               case '1': $maxRad = 4000; break;
-  //               case '2': $maxRad = 2000; break;
-  //               case '3': $maxRad = 1500; break;
-  //             }
-  //           }
-  //
-  //           var p = Math.pow(2, (21 - map.getZoom()));
-  //
-  //           var cityCircle = new google.maps.Circle({
-  //             strokeColor: '',
-  //             strokeOpacity: 0,
-  //             strokeWeight: 0,
-  //             fillColor: $color,
-  //             fillOpacity: 0.7,
-  //             map: map,
-  //             center: {lat: Number(data[i].lat), lng: Number(data[i].lng)},
-  //             radius: p * $maxRad * 0.00027
-  //           });
-  //
-  //           circleTitle.push((data[i].prov));
-  //
-  //           mrr.push($maxRad);
-  //           circle.push(cityCircle);
-  //
-  //           // (function(circle, i) {
-  //           //     // add click event
-  //           //     google.maps.event.addListener(circle[i], 'click', function(evt) {
-  //           //       $('#infoSpan').html('<img src="images/spinner.gif" width="100%">');
-  //           //
-  //           //       if($('#infoPane').css('display')=='none'){
-  //           //         $('#infoPane').fadeIn('fast', function(){});
-  //           //       }
-  //           //
-  //           //       for (var j = 0; j < circle.length; j++) {
-  //           //         circle[j].setOptions({
-  //           //           fillColor: '#FF0000',
-  //           //           fillOpacity: 0.7
-  //           //         });
-  //           //       }
-  //           //
-  //           //       circle[i].setOptions({
-  //           //         fillColor: '#FF9200',
-  //           //         fillOpacity: 0.9
-  //           //       });
-  //           //
-  //           //       // console.log(circleTitle[i]);
-  //           //
-  //           //       if($('#txtLevel').val()==1){
-  //           //         $url_infocontent = 'core/placeDetail_province_mongo.php?place_id=' + circleTitle[i];
-  //           //       }else if($('#txtLevel').val()==2){
-  //           //         $url_infocontent = 'core/placeDetail_district_mongo.php?place_id=' + circleTitle[i];
-  //           //       }else if($('#txtLevel').val()==3){
-  //           //         $url_infocontent = 'core/placeDetail_tabmon_mongo.php?place_id=' + circleTitle[i];
-  //           //       }else if($('#txtLevel').val()==4){
-  //           //         $url_infocontent = 'core/placeDetail_mongo.php?place_id=' + circleTitle[i];
-  //           //       }
-  //           //
-  //           //       $items = 'false';$is = 'false';
-  //           //       $road = 'false';$water = 'false';$fall = 'false';
-  //           //       $isAll = 'Yes';
-  //           //
-  //           //       if($("#chItems").is(':checked')){ $items = 'true'; }
-  //           //       if($("#chIs").is(':checked')){ $is = 'true'; }
-  //           //       if(!$("#chAge").is(':checked')){ $isAll = 'No'; }
-  //           //       if($("#chRoad").is(':checked')){ $road = 'true'; }
-  //           //       if($("#chWater").is(':checked')){ $water = 'true'; }
-  //           //       if($("#chFall").is(':checked')){ $fall = 'true'; }
-  //           //
-  //           //       var jqxhr = $.post($url_infocontent,
-  //           //         {
-  //           //           dateStart: $('#txtStart').val() ,
-  //           //           dateEnd: $('#txtEnd').val(),
-  //           //           ageStart: $('#txtAgestart').val() ,
-  //           //           ageEnd: $('#txtAgeend').val(),
-  //           //           itemsdb: $items,
-  //           //           isdb: $is,
-  //           //           evt1: $road ,
-  //           //           evt2: $water ,
-  //           //           evt3: $fall,
-  //           //           ageall: $isAll
-  //           //         },
-  //           //         function(result){
-  //           //
-  //           //         // console.log(result);
-  //           //       });
-  //           //
-  //           //       jqxhr.always(function(data){
-  //           //         $('#infoSpan').html(data);
-  //           //       });
-  //           //
-  //           //     }); //End eventListener
-  //           // })(circle, i);
-  //
-  //         }
-  //
-  //       }
-  //
-  //
-  //     }, 1000);
-  //   }
-  //
-  //
-  //
-  // }, "json");
 }
 
 function setI(i){
@@ -714,7 +492,7 @@ function fetchMarkerValue1(){
     // for (var i = 0; i < 3; i++) {
     //     $('#result' + (i+1) + '_1').text(err);
     // }
-    console.log(err);
+    // console.log(err);
   });
 
   jqxhr.always(function(data){
@@ -786,7 +564,6 @@ function fetchMarkerValue3(){
   $isRoad = 'Yes';
   $isWater = 'Yes';
   $isFall = 'Yes';
-  $isAll = 'Yes';
 
   $eventType = [];
 
@@ -796,7 +573,6 @@ function fetchMarkerValue3(){
 
   if(!$("#chItems").is(':checked')){ $itemcb = 'No'; }
   if(!$("#chIs").is(':checked')){ $iscb = 'No'; }
-  if(!$("#chAge").is(':checked')){ $isAll = 'No'; }
   if($("#chRoad").is(':checked')){ $eventType.push(25); }
   if($("#chWater").is(':checked')){ $eventType.push(23); }
   if($("#chFall").is(':checked')){ $eventType.push(24); }
@@ -811,7 +587,6 @@ function fetchMarkerValue3(){
     dateEnd: $('#txtEnd').val(),
     itemcb: $itemcb,
     iscb: $iscb,
-    isall: $isAll,
     eventtype: $eventType.toString()
   }, function(data){}, "json");
 
@@ -821,6 +596,7 @@ function fetchMarkerValue3(){
 
   jqxhr.always(function(data){
     // console.log(data[1].numcount);
+    // console.log(data);
     for (var i = 0; i < data.length; i++) {
         $('#result' + (i+1) + '_3').text(data[i].numcount);
     }
@@ -853,4 +629,19 @@ function markerFallAccident(i, icon,lat,lng,province,district,tumbon){
       map: map,
       icon: icon
   });
+}
+
+function initLog(){
+  // เรียกใช้คุณสมบัติ ระบุตำแหน่ง ของ html 5 ถ้ามี
+	if(navigator.geolocation){
+			navigator.geolocation.getCurrentPosition(function(position){
+				var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        var cLat = position.coords.latitude;
+        var cLng = position.coords.longitude;
+			},function() {
+				// คำสั่งทำงาน ถ้า ระบบระบุตำแหน่ง geolocation ผิดพลาด หรือไม่ทำงาน
+			});
+	}else{
+		 // คำสั่งทำงาน ถ้า บราวเซอร์ ไม่สนับสนุน ระบุตำแหน่ง
+	}
 }

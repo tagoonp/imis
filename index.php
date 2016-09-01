@@ -96,12 +96,10 @@
 
             <div class="" style="padding: 0px 10px; padding-top: 5px; position: relative;">
               <div class="row" style="padding-top: 5px;">
-                <div class="col-sm-4">
-                  <span style="font-size: 1.0em;">ช่วงอายุ : </span>
+                <div class="col-sm-5" style="padding-top: 10px;">
+                  <span style="font-size: 1.0em;"><i class="fa fa-info-circle" title="กรอก -1 ในช่องอายุเริ่มต้นเพื่อนับทุกรายการที่ไม่สามารถระบุอายุได้" style="cursor:pointer; color: red;"></i> ช่วงอายุ :  </span>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-7">
                   <table width="100%">
                     <tr>
                       <td width="50%" style="padding: 5px 5px 5px 0px;">
@@ -113,19 +111,16 @@
                     </tr>
                   </table>
                 </div>
-                <div class="col-sm-12">
-                  <!-- <input type="checkbox" name="chAge" id="chAge" class="cb" value="1" checked="" >  -->
-                  <span style="font-size: 0.9em; font-weight: 400; color: red;">กรอก "-1" ในช่องอายุเริ่มต้นเพื่อนับทุกรายการที่ไม่สามารถระบุอายุได้</span>&nbsp;&nbsp;
-                </div>
               </div>
             </div>
             <div class="" style="padding: 0px 10px; padding-top: 5px; position: relative;">
-              <span style="font-size: 1.0em;">ฐานข้อมูล : </span>
-              <div class="row" style="padding-top: 5px;">
-                <div class="col-sm-12" style="padding-top: 0px;">
+              <div class="row">
+                <div class="col-sm-5">
+                  <span style="font-size: 1.0em;">ฐานข้อมูล : </span>
+                </div>
+                <div class="col-sm-7">
                   <input type="checkbox" name="name" id="chItems" class="cb" value="1" checked="" > <span style="font-size: 0.9em;">ITEMS</span>&nbsp;&nbsp;
                   <input type="checkbox" name="name" id="chIs" class="cb" value="1" checked=""> <span style="font-size: 0.9em;">IS</span>
-
                 </div>
               </div>
             </div>
@@ -240,6 +235,16 @@
     </div>
   </body>
 </html>
+
+
+<div class="loadingDiv">
+  <div class="msg_data2">
+    <img src="images/progressLoad.gif" alt="" width="100%" />
+  </div>
+</div>
+
+<div class="loadBG"></div>
+
 <script src="js/jquery.cookie.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/map.js"></script>

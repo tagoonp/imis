@@ -8,6 +8,7 @@ $(document).ready(function(){
   // console.log(displayPanelHeight + 50);
   setTimeout(function(){
     initMap();
+    initLog();
   },1000);
 });
 
@@ -56,12 +57,4 @@ $(function(){
       swal("ขออภัย!", "กรุณาเลือกฐานข้อมูลในการกรองข้อมูล!", "warning")
     }
   });
-
-  // $('#txtLevel').change(function(){
-  //   initMap();
-  // });
-
-  // $('.cb').click(function(){
-  //   initMap();
-  // });
 });

@@ -1,7 +1,4 @@
 <?php
-// ini_set('memory_limit', '256M');
-// ini_set('max_execution_time', 300);
-
 include "../configuration/connect.class.php";
 $db = new database();
 $db->connect();
@@ -13,7 +10,7 @@ $dateStart = $_POST['dateStart'];
 $dateEnd = $_POST['dateEnd'];
 $itemcb = $_POST['itemcb'];
 $iscb = $_POST['iscb'];
-$isall = $_POST['isall'];
+// $isall = $_POST['isall'];
 $eventType = $_POST['eventtype'];
 $buff = explode(',' , $eventType);
 $eventType = implode("','" , $buff);
@@ -36,28 +33,28 @@ if($itemcb=='Yes'){
 
 $i = 0;
 
-if($isall=='Yes'){
-  $strSQL = "SELECT atype, count(*) numcase
-               FROM link_data_table
-               WHERE
-               atype in ('".$eventType."')
-               and adate between '".$dateStart."' and '".$dateEnd."'
-               and status = '1'
-               GROUP BY atype
-               ";
-}else{
-  $strSQL = "SELECT atype, count(*) numcase
-               FROM link_data_table
-               WHERE
-               atype in ('".$eventType."')
-               and adate between '".$dateStart."' and '".$dateEnd."'
-               and age between '".$ageStart."' and '".$ageEnd."'
-               and status = '1'
-               GROUP BY atype
-               ";
-}
+// $strSQL = "SELECT atype, count(*) numcase
+//              FROM link_data_table
+//              WHERE
+//              atype in ('".$eventType."')
+//              and adate between '".$dateStart."' and '".$dateEnd."'
+//              and age >= '".$ageStart."'
+//              and age <= '".$ageEnd."'
+//              and status = '1'
+//              GROUP BY atype
+//              ";
 
+// $strSQL = "SELECT *
+//              FROM link_data_table
+//              WHERE
+//              atype in ('".$eventType."')
+//              and adate between '".$dateStart."' and '".$dateEnd."'
+//              and age >= '".$ageStart."'
+//              and age <= '".$ageEnd."'
+//              and status = '1'
+//              ";
 
+$strSQL = "SELECT COUNT(*) as numcase, atype FROM `link_data_table` WHERE atype in ('".$eventType."') and adate between '".$dateStart."' and '".$dateEnd."' and status = 1 and (age >= ".$ageStart." and age <= ".$ageEnd.") GROUP BY atype ";
 
 // echo json_encode($strSQL);
 // exit();
@@ -65,19 +62,31 @@ if($isall=='Yes'){
 $resultQuery = $db->select($strSQL,false,true);
 
 $return_buff =  array(0, 0, 0);
+$t25 = 0;
+$t23 = 0;
+$ts4 = 0;
 
 if($resultQuery){
   foreach ($resultQuery as $value) {
-    if($value['atype']=='25'){
+    if($value['atype']==25){
       $return_buff[0] = number_format($value['numcase']);
-    }else if($value['atype']=='23'){
+      // $t25++;
+    }else if($value['atype']==23){
       $return_buff[1] = number_format($value['numcase']);
-    }else if($value['atype']=='24'){
+      // $t23++;
+    }else if($value['atype']==24){
       $return_buff[2] = number_format($value['numcase']);
+      // $t24++;
     }
   }
 }
 
+// $return_buff[0] = number_format($t25);
+// $return_buff[1] = number_format($t23);
+// $return_buff[2] = number_format($t24);
+
+// print_r($return_buff);
+// exit();
 $return = '';
 for($i=0;$i<count($return_buff);$i++){
   $return[$i]['numcount'] = $return_buff[$i];

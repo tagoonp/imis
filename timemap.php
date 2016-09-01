@@ -62,11 +62,24 @@
               <span style="font-size: 1.0em;">ระดับพื้นที่การแสดงผล : </span>
               <div class="row" style="padding-top: 5px;">
                 <div class="col-sm-12">
-                  <select class="form-control" name="txtLevel" id="txtLevel">
-                    <option value="1" selected="">จังหวัด</option>
-                    <option value="2">อำเภอ</option>
-                    <option value="3">ตำบล</option>
-                    <option value="4">พิกัด</option>
+                  <select class="form-control" name="txtProv" id="txtProv">
+                    <option value="" selected="">--- เลือกจังหวัด ---</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row" style="padding-top: 5px;">
+                <div class="col-sm-12">
+                  <select class="form-control" name="txtDistrict" id="txtDistrict">
+                    <option value="" selected="">--- เลือกอำเภอ ---</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row" style="padding-top: 5px;">
+                <div class="col-sm-12">
+                  <select class="form-control" name="txtTumbon" id="txtTumbon">
+                    <option value="" selected="">--- เลือกตำบล ---</option>
                   </select>
                 </div>
               </div>
@@ -101,12 +114,10 @@
 
             <div class="" style="padding: 0px 10px; padding-top: 5px; position: relative;">
               <div class="row" style="padding-top: 5px;">
-                <div class="col-sm-4">
-                  <span style="font-size: 1.0em;">ช่วงอายุ : </span>
+                <div class="col-sm-5" style="padding-top: 10px;">
+                  <span style="font-size: 1.0em;"><i class="fa fa-info-circle" title="กรอก -1 ในช่องอายุเริ่มต้นเพื่อนับทุกรายการที่ไม่สามารถระบุอายุได้" style="cursor:pointer; color: red;"></i> ช่วงอายุ :  </span>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-7">
                   <table width="100%">
                     <tr>
                       <td width="50%" style="padding: 5px 5px 5px 0px;">
@@ -118,19 +129,16 @@
                     </tr>
                   </table>
                 </div>
-                <div class="col-sm-12">
-                  <!-- <input type="checkbox" name="chAge" id="chAge" class="cb" value="1" checked="" >  -->
-                  <span style="font-size: 0.9em; font-weight: 400; color: red;">กรอก "-1" ในช่องอายุเริ่มต้นเพื่อนับทุกรายการที่ไม่สามารถระบุอายุได้</span>&nbsp;&nbsp;
-                </div>
               </div>
             </div>
             <div class="" style="padding: 0px 10px; padding-top: 5px; position: relative;">
-              <span style="font-size: 1.0em;">ฐานข้อมูล : </span>
-              <div class="row" style="padding-top: 5px;">
-                <div class="col-sm-12" style="padding-top: 0px;">
+              <div class="row">
+                <div class="col-sm-5">
+                  <span style="font-size: 1.0em;">ฐานข้อมูล : </span>
+                </div>
+                <div class="col-sm-7">
                   <input type="checkbox" name="name" id="chItems" class="cb" value="1" checked="" > <span style="font-size: 0.9em;">ITEMS</span>&nbsp;&nbsp;
                   <input type="checkbox" name="name" id="chIs" class="cb" value="1" checked=""> <span style="font-size: 0.9em;">IS</span>
-
                 </div>
               </div>
             </div>
@@ -152,12 +160,73 @@
               </div>
             </div>
 
-            <!-- <div class="" style="padding: 8px; background: #C1C1C1; position: relative; padding-top: 10px; margin-top: 10px; color: #fff; border: solid; border-width: 1px 0px 1px 0px; border-color: #ccc;">
+            <div class="" style="padding: 8px; background: #C1C1C1; position: relative; padding-top: 10px; margin-top: 10px; color: #fff; border: solid; border-width: 1px 0px 1px 0px; border-color: #ccc;">
               <i class="fa fa-th-list"></i> จำนวน
             </div>
             <div class="" style="padding: 0px 0px; padding-top: 0px; position: relative; ">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style=" border:none;">
 
-            </div> -->
+                    </th>
+                    <th style="font-weight: 400; font-size: 0.8em; border:none;">
+                      เหตุการณ์
+                    </th>
+                    <th style="font-weight: 400; font-size: 0.8em; border:none;">
+                      ผู้บาดเจ็บ
+                    </th>
+                    <th style="font-weight: 400; font-size: 0.8em; border:none;">
+                      ผู้เสียชีวิต
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight: 400; font-size: 0.8em;">
+                      <img src="images/mr100p.png" alt="" width="10" /> อุบัติเหตุทางถนน
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result1_1">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result1_2">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result1_3">N/A</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 400; font-size: 0.8em;">
+                      <img src="images/mb100p.png" alt="" width="10" /> จมน้้ำ
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result2_1">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result2_2">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result2_3">N/A</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 400; font-size: 0.8em;">
+                      <img src="images/my100p.png" alt="" width="10" /> พลัดตกหกล้ม
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result3_1">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result3_2">N/A</span>
+                    </td>
+                    <td style="font-size: 0.8em;">
+                      <span id="result3_3">N/A</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
         <!-- /#sidebar-wrapper -->
 
@@ -186,10 +255,18 @@
       </div>
     </div>
   </body>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAewI1LswH0coZUPDe8Pvy39j4sbxmgCZU&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAewI1LswH0coZUPDe8Pvy39j4sbxmgCZU" async defer></script>
   <script type="text/javascript" src="js/timemap-custom.js"></script>
 </html>
-<!-- <script type="text/javascript" src="js/index.js"></script> -->
+
+<div class="loadingDiv">
+  <div class="msg_data2">
+    <img src="images/progressLoad.gif" alt="" width="100%" />
+  </div>
+</div>
+
+<div class="loadBG"></div>
+<script type="text/javascript" src="js/timemap-index.js"></script>
 <!-- <script type="text/javascript" src="js/map.js"></script> -->
 <!-- <MarkerCluster imagePath="libraries/markercluster/images/m" /> -->
 <!-- <script	src="libraries/markercluster/src/markerclusterer.js"></script> -->
